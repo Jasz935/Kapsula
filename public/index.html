@@ -1,43 +1,291 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Kapsula — Creación de Presupuesto (Prototipo)</title>
+    <link rel="stylesheet" href="src/index.css" />
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <div class="page">
+      <main class="container" role="main" aria-labelledby="title">
+        <header class="top">
+          <div class="brand" aria-hidden="true">Kapsula</div>
+          <button class="help" aria-label="Ayuda">Ayuda</button>
+        </header>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+        <h1 id="title">Creación de Presupuesto</h1>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+        <form id="budgetForm" class="card" novalidate>
+          <!-- Salario -->
+          <div>
+            <label for="salary">Ingrese su salario total</label>
+            <div class="input-row" style="gap: 10px">
+              <div class="currency-prefix" aria-hidden="true">$</div>
+              <input
+                id="salary"
+                name="salary"
+                type="text"
+                placeholder="Ej: 2500000"
+                min="0"
+                step="1"
+                aria-describedby="salaryHelp"
+                required
+              />
+            </div>
+            <div id="salaryHelp" class="hint">
+              Ingrese el ingreso mensual neto (sin puntos ni comas si usa
+              número).
+            </div>
+          </div>
+
+          <!-- Porcentajes -->
+          <div>
+            <label>Ingrese la cantidad a usar por categoría</label>
+
+            <div style="display: grid; gap: 10px">
+              <div class="row-2col">
+                <div>Gastos mensuales</div>
+                <div class="percent-box">
+                  <input
+                    id="gastos"
+                    class="number-input"
+                    type="text"
+                    min="0"
+                    max="salary"
+                    step="1"
+                    placeholder="$"
+                    aria-label="Gastos mensuales ($)"
+                    required
+                  />
+                  <div
+                    class="hint"
+                    style="margin-top: 6px; color: var(--muted)"
+                  >
+                    $COP
+                  </div>
+                </div>
+              </div>
+
+              <div class="row-2col">
+                <div>Ahorro / Inversión</div>
+                <div class="percent-box">
+                  <input
+                    id="ahorro"
+                    class="number-input"
+                    type="text"
+                    min="0"
+                    max="salary"
+                    step="1"
+                    placeholder="$"
+                    aria-label="Ahorro o inversión ($)"
+                    required
+                  />
+                  <div
+                    class="hint"
+                    style="margin-top: 6px; color: var(--muted)"
+                  >
+                    $COP
+                  </div>
+                </div>
+              </div>
+
+              <div class="row-2col">
+                <div>Libre</div>
+                <div class="percent-box">
+                  <input
+                    id="libre"
+                    class="number-input"
+                    type="text"
+                    min="0"
+                    max="100"
+                    step="1"
+                    placeholder="$"
+                    aria-label="Dinero libre ($)"
+                    required
+                  />
+                  <div
+                    class="hint"
+                    style="margin-top: 6px; color: var(--muted)"
+                  >
+                    $COP
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              style="
+                display: flex;
+                gap: 10px;
+                margin-top: 12px;
+                align-items: center;
+              "
+            >
+              <div id="sumNote" class="note" role="alert">
+                La suma de montos debe ser igual al salario base ingresado.
+              </div>
+              <div id="sumOk" class="sum-ok">
+                Total = <span id="totalSum">0</span>$
+              </div>
+            </div>
+          </div>
+
+          <!-- Acciones -->
+          <div class="actions" style="margin-top: 6px">
+            <button id="createBtn" class="btn" type="submit" disabled>
+              Crear Presupuesto
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <script>
+      // Elementos
+      const gastos = document.getElementById("gastos");
+      const ahorro = document.getElementById("ahorro");
+      const libre = document.getElementById("libre");
+      const totalSumEl = document.getElementById("totalSum");
+      const sumNote = document.getElementById("sumNote");
+      const sumOk = document.getElementById("sumOk");
+      const createBtn = document.getElementById("createBtn");
+      const form = document.getElementById("budgetForm");
+      const salary = document.getElementById("salary");
+
+      // Convierte "1.234.567" -> 1234567 (Number)
+      function parseInputValue(el) {
+        if (!el || !el.value) return 0;
+        return Number(el.value.replace(/\D/g, "")) || 0;
+      }
+
+      // Formatea y escribe en el input (mantiene solo números internamente)
+      function formatNumberInput(input) {
+        // Guardar posición del cursor (mejora UX cuando se escribe)
+        const selectionStart = input.selectionStart;
+        const beforeLength = input.value.length;
+
+        let raw = input.value.replace(/\D/g, "");
+        if (raw === "") {
+          input.value = "";
+          return 0;
+        }
+        const num = Number(raw);
+        input.value = num.toLocaleString("es-CO");
+
+        // tratar de restaurar caret (posible aproximación; no es perfecta en todos los navegadores)
+        try {
+          const afterLength = input.value.length;
+          const diff = afterLength - beforeLength;
+          const newPos = Math.max(0, selectionStart + diff);
+          input.setSelectionRange(newPos, newPos);
+        } catch (e) {
+          // si falla no pasa nada
+        }
+
+        return num;
+      }
+
+      // Actualiza suma y estado del botón
+      function updateSum() {
+        const a = parseInputValue(gastos);
+        const b = parseInputValue(ahorro);
+        const c = parseInputValue(libre);
+        const total = a + b + c;
+        totalSumEl.textContent = total.toLocaleString("es-CO");
+
+        const s = parseInputValue(salary);
+
+        if (s > 0 && total === s) {
+          sumNote.style.display = "none";
+          sumOk.style.display = "inline-block";
+          createBtn.disabled = false;
+        } else {
+          sumOk.style.display = "none";
+          sumNote.style.display = "inline-block";
+          createBtn.disabled = true;
+        }
+      }
+
+      // Comportamiento salary
+      salary.addEventListener("input", () => {
+        formatNumberInput(salary);
+        updateSum();
+      });
+
+      salary.addEventListener("blur", () => {
+        // al perder foco, asegurar formato bonito
+        if (salary.value === "") return;
+        const v = parseInputValue(salary);
+        salary.value = v === 0 ? "" : v.toLocaleString("es-CO");
+        updateSum();
+      });
+
+      // Inputs gastos/ahorro/libre
+      [gastos, ahorro, libre].forEach((el) => {
+        // mientras escribe -> formatea
+        el.addEventListener("input", () => {
+          formatNumberInput(el);
+          updateSum();
+        });
+
+        // al perder foco -> validar límites
+        el.addEventListener("blur", () => {
+          if (el.value === "") return;
+
+          let v = parseInputValue(el);
+          if (v < 0) v = 0;
+
+          const s = parseInputValue(salary);
+          if (s > 0 && v > s) v = s;
+
+          el.value = v === 0 ? "" : v.toLocaleString("es-CO");
+          updateSum();
+        });
+      });
+
+      // Submit
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const a = parseInputValue(gastos);
+        const b = parseInputValue(ahorro);
+        const c = parseInputValue(libre);
+        const total = a + b + c;
+        const s = parseInputValue(salary);
+
+        if (total !== s) {
+          alert(
+            "La suma de gastos, ahorro y libre debe ser igual al salario total."
+          );
+          return;
+        }
+
+        const data = {
+          salary: s,
+          gastos: a,
+          ahorro: b,
+          libre: c,
+        };
+
+        alert(
+          "Presupuesto creado ✅\n\n" +
+            "Salario: $" +
+            data.salary.toLocaleString("es-CO") +
+            "\n" +
+            "Gastos: $" +
+            data.gastos.toLocaleString("es-CO") +
+            "\n" +
+            "Ahorro: $" +
+            data.ahorro.toLocaleString("es-CO") +
+            "\n" +
+            "Libre: $" +
+            data.libre.toLocaleString("es-CO")
+        );
+      });
+
+      // estado inicial
+      updateSum();
+    </script>
   </body>
 </html>
