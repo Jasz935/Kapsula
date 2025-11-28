@@ -88,6 +88,13 @@ form {
 }
 
 .card {
+  width: 100%;
+  max-width: 900px; /* ajusta según el diseño */
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 18px;
+  overflow: hidden;
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0.01),
