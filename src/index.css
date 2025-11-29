@@ -158,7 +158,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .row-2col {
-  grid-template-columns: 1fr 120px;
+  grid-template-columns: 1fr minmax(100px, 160px);
   gap: 8px;
   align-items: center;
   flex-wrap: wrap;
