@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/Kapsula/static/css/main.7cdeb338.css",
+    "main.css": "/Kapsula/static/css/main.0a385275.css",
     "main.js": "/Kapsula/static/js/main.eb9aa607.js",
     "static/js/453.72c5d427.chunk.js": "/Kapsula/static/js/453.72c5d427.chunk.js",
     "index.html": "/Kapsula/index.html",
     "static/media/logo.svg": "/Kapsula/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "main.7cdeb338.css.map": "/Kapsula/static/css/main.7cdeb338.css.map",
+    "main.0a385275.css.map": "/Kapsula/static/css/main.0a385275.css.map",
     "main.eb9aa607.js.map": "/Kapsula/static/js/main.eb9aa607.js.map",
     "453.72c5d427.chunk.js.map": "/Kapsula/static/js/453.72c5d427.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7cdeb338.css",
+    "static/css/main.0a385275.css",
     "static/js/main.eb9aa607.js"
   ]
 }
