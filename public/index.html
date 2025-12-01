@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Kapsula — Creación de Presupuesto (Prototipo)</title>
   </head>
+
+    </div>
+  </div>
   <body>
     <div class="page">
       <main class="container" role="main" aria-labelledby="title">
@@ -135,10 +138,25 @@
             <button id="createBtn" class="btn" type="submit" disabled>
               Crear Presupuesto
             </button>
+
+     
           </div>
         </form>
-      </main>
+        <div id="modal" class="modal">
+  <div class="modal-content">
+    <span id="closeModal" class="close-btn">×</span>
+    <h2>Presupuesto creado correctamente</h2>
+    <p><strong>Salario: </strong><span id="m-salary"></span></p>
+    <p><strong>Gastos mensuales: </strong><span id="m-gastos"></span></p>
+    <p><strong>Ahorro / Inversión: </strong><span id="m-ahorro"></span></p>
+    <p><strong>Libre: </strong><span id="m-libre"></span></p>
+
+    <div class="modal-actions">
+      <button id="closeBtn" class="btn-close">Cerrar</button>
     </div>
+  </div>
+</div>
+      </main>
 
     <script>
       // Elementos
@@ -252,37 +270,28 @@
         const c = parseInputValue(libre);
         const total = a + b + c;
         const s = parseInputValue(salary);
+        const modal = document.getElementById("modal");
+        const closeModal = document.getElementById("closeModal");
 
-        if (total !== s) {
-          alert(
-            "La suma de gastos, ahorro y libre debe ser igual al salario total."
-          );
-          return;
-        }
+        if (total !== s) return;
 
-        const data = {
-          salary: s,
-          gastos: a,
-          ahorro: b,
-          libre: c,
-        };
+  // 🔥 Rellenar valores del modal
+  modal.style.display = "flex"; // <-- abre el modal
+document.getElementById("m-salary").textContent = s.toLocaleString("es-CO");
+document.getElementById("m-gastos").textContent = a.toLocaleString("es-CO");
+document.getElementById("m-ahorro").textContent = b.toLocaleString("es-CO");
+document.getElementById("m-libre").textContent = c.toLocaleString("es-CO");
+});
 
-        alert(
-          "Presupuesto creado ✅\n\n" +
-            "Salario: $" +
-            data.salary.toLocaleString("es-CO") +
-            "\n" +
-            "Gastos: $" +
-            data.gastos.toLocaleString("es-CO") +
-            "\n" +
-            "Ahorro: $" +
-            data.ahorro.toLocaleString("es-CO") +
-            "\n" +
-            "Libre: $" +
-            data.libre.toLocaleString("es-CO")
-        );
-      });
+// Cerrar modal
+    document.getElementById("closeModal").onclick = () => modal.style.display = "none";
+document.getElementById("closeBtn").onclick = () => modal.style.display = "none";
 
+// Cerrar si se hace clic fuera del cuadro
+window.onclick = (e) => {
+  if (e.target === modal) modal.style.display = "none";
+};
+      ;
       // estado inicial
       updateSum();
     </script>
