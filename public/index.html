@@ -285,7 +285,9 @@ document.getElementById("m-libre").textContent = c.toLocaleString("es-CO");
 
 // Cerrar modal
     document.getElementById("closeModal").onclick = () => modal.style.display = "none";
-document.getElementById("closeBtn").onclick = () => modal.style.display = "none";
+document.getElementById("closeBtn").onclick = () => {modal.style.display = "none"
+  window.location.href="/gastos.html";
+};
 
 // Cerrar si se hace clic fuera del cuadro
 window.onclick = (e) => {
