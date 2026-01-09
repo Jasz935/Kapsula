@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Kapsula — Creación de Presupuesto (Prototipo)</title>
   </head>
-
-    </div>
-  </div>
   <body>
     <div class="page">
       <main class="container" role="main" aria-labelledby="title">
@@ -291,7 +288,7 @@ document.getElementById("closeBtn").onclick = () => {modal.style.display = "none
 
 // Cerrar si se hace clic fuera del cuadro
 window.onclick = (e) => {
-  if (e.target === modal) modal.style.display = "none";
+  if (e.target === modal) window.location.href = `${window.location.origin}/Kapsula/gastos.html`;
 };
       ;
       // estado inicial
