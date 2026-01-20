@@ -44,7 +44,7 @@ html.first {
 .container {
   width: 100%;
   max-width: 420px;
-  background: linear-gradient(270deg, var(--bg-1) 0%, var(--bg-2) 100%);
+  background: transparent;
   padding: 0;
   border-radius: var(--radius);
   box-shadow:
