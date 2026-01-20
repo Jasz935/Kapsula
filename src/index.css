@@ -334,20 +334,6 @@ input[type="number"]::-webkit-inner-spin-button {
   background: linear-gradient(135deg, #3b3fd4, #2b4f85);
 }
 
-.cardgas {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 18px;
-  padding: 24px;
-  max-width: 360px;
-
-  box-shadow: 0 12px 30px rgba(255, 0, 0, 0.25);
-  border: 1px solid rgba(255, 0, 0, 0.15);
-
-  color: #f1f2ff;
-}
-
 .container2 {
   width: 100%;
   max-width: 720px;
