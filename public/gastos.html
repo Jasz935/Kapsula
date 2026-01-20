@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" class="">
+<html lang="es" class="newhtml">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -8,7 +8,84 @@
     <link href="/Kapsula/static/css/main.f68d4914.css" rel="stylesheet" />
   </head>
 
-  <header class="header-top">
-    <span class="brand" aria-hidden="true">Kapsula</span>
-  </header>
+  <body style="margin: 0" padding="0">
+    <header class="header-top">
+      <div class="brand" aria-hidden="true">Kapsula</div>
+      <div class="header-topright">
+        <button class="help" aria-label="Ayuda">Ayuda</button>
+        <button class="help" aria-label="Gastos">Gastos</button>
+        <button class="help" aria-label="Historial">Descargar Historial</button>
+      </div>
+    </header>
+    <div class="page">
+      <main class="container" role="main" aria-labelledby="title">
+        <button class="btn" id="openModal">Agregar</button>
+
+      <section id="itemsContainer" class="items hidden"></section>
+
+      <!-- MODAL -->
+      <div class="modals" id="modalAdd">
+        <div class="modals-content">
+          <h3>Agregar registro</h3>
+
+          <form id="addForm">
+            <input type="text" id="title" placeholder="Título" required />
+            <input type="number" id="value" placeholder="Valor" required />
+            <textarea id="description" placeholder="Descripción"></textarea>
+            <input type="file" id="image" accept="image/*" />
+
+            <button type="submit" class="btn">Guardar</button>
+            <button type="button" class="btn-close" id="closeModal">
+              Cancelar
+            </button>
+          </form>
+        </div>
+      </div>
+    </div></main>
+      
+
+    <script>
+      const openModal = document.getElementById("openModal");
+      const closeModal = document.getElementById("closeModal");
+      const modal = document.getElementById("modalAdd");
+      const form = document.getElementById("addForm");
+      const container = document.getElementById("itemsContainer");
+
+      openModal.onclick = () => (modal.style.display = "flex");
+      closeModal.onclick = () => (modal.style.display = "none");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const title = document.getElementById("title").value;
+        const value = document.getElementById("value").value;
+        const description = document.getElementById("description").value;
+        const imageInput = document.getElementById("image");
+        const date = new Date().toLocaleDateString("es-CO");
+
+        const card = document.createElement("div");
+        card.className = "item-card";
+
+        card.innerHTML = `
+    <h3>${title}</h3>
+    <p><strong>$${Number(value).toLocaleString("es-CO")}</strong></p>
+    <p>${description}</p>
+    <div class="item-date">Creado: ${date}</div>
+  `;
+
+        if (imageInput.files[0]) {
+          const img = document.createElement("img");
+          img.src = URL.createObjectURL(imageInput.files[0]);
+          card.appendChild(img);
+        }
+
+        container.appendChild(card);
+
+        container.classList.remove("hidden");
+
+        form.reset();
+        modal.style.display = "none";
+      });
+    </script>
+  </body>
 </html>
