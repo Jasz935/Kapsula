@@ -42,10 +42,10 @@ html.first {
 
 .container {
   width: 100%;
-  max-width: 720px;
-  background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+  max-width: 420px;
+  background: transparent; /* 👈 MUY IMPORTANTE */
+  padding: 0;
   border-radius: var(--radius);
-  padding: 34px;
   box-shadow:
     0 5px 10px rgba(255, 255, 255, 0.6),
     inset 0 1px 0 rgba(255, 255, 255, 0.02);
@@ -99,7 +99,8 @@ form {
 
 .card {
   width: 100%;
-  max-width: 900px; /* ajusta según el diseño */
+  max-width: 420px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
