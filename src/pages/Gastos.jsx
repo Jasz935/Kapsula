@@ -48,15 +48,26 @@ export default function Gastos() {
           {items.length > 0 && (
             <section className="items">
               {items.map((item, index) => (
-                <div className="item-card" key={index}>
-                  <h3>{item.title}</h3>
-                  <p>
-                    <strong>${item.value.toLocaleString("es-CO")}</strong>
-                  </p>
-                  <p>{item.description}</p>
-                  <div className="item-date">Creado: {item.date}</div>
+                <div className="item-card horizontal" key={index}>
+                  {/* IMAGEN */}
+                  {item.image && (
+                    <div className="item-image">
+                      <img src={item.image} alt="adjunto" />
+                    </div>
+                  )}
 
-                  {item.image && <img src={item.image} alt="adjunto" />}
+                  {/* CONTENIDO */}
+                  <div className="item-content">
+                    <h3 className="item-title">{item.title}</h3>
+
+                    <div className="item-value">
+                      ${item.value.toLocaleString("es-CO")}
+                    </div>
+
+                    <p className="item-description">{item.description}</p>
+
+                    <div className="item-date">Creado: {item.date}</div>
+                  </div>
                 </div>
               ))}
             </section>

@@ -21,6 +21,7 @@ export default function Presupuesto() {
   const libreNum = parse(libre);
 
   const total = gastosNum + ahorroNum + libreNum;
+  const restante = salarioNum - total;
   const isValid = salarioNum > 0 && total === salarioNum;
 
   return (
@@ -137,15 +138,9 @@ export default function Presupuesto() {
                 alignItems: "center",
               }}
             >
-              {!isValid ? (
-                <div className="note">
-                  La suma de montos debe ser igual al salario base ingresado.
-                </div>
-              ) : (
-                <div className="sum-ok">
-                  Total = {total.toLocaleString("es-CO")}$
-                </div>
-              )}
+              <div className="sum-ok">
+                Restante = {restante.toLocaleString("es-CO")}$
+              </div>
             </div>
           </div>
 
