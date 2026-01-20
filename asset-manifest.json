@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Kapsula/static/css/main.bd64c695.css",
-    "main.js": "/Kapsula/static/js/main.b27cd83b.js",
+    "main.css": "/Kapsula/static/css/main.54eb7a6c.css",
+    "main.js": "/Kapsula/static/js/main.65928bd8.js",
     "static/js/453.72c5d427.chunk.js": "/Kapsula/static/js/453.72c5d427.chunk.js",
     "index.html": "/Kapsula/index.html",
-    "main.bd64c695.css.map": "/Kapsula/static/css/main.bd64c695.css.map",
-    "main.b27cd83b.js.map": "/Kapsula/static/js/main.b27cd83b.js.map",
+    "main.54eb7a6c.css.map": "/Kapsula/static/css/main.54eb7a6c.css.map",
+    "main.65928bd8.js.map": "/Kapsula/static/js/main.65928bd8.js.map",
     "453.72c5d427.chunk.js.map": "/Kapsula/static/js/453.72c5d427.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.bd64c695.css",
-    "static/js/main.b27cd83b.js"
+    "static/css/main.54eb7a6c.css",
+    "static/js/main.65928bd8.js"
   ]
 }
