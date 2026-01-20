@@ -24,8 +24,8 @@ export default function Presupuesto() {
   const isValid = salarioNum > 0 && total === salarioNum;
 
   return (
-    <main className="container">
-      <div className="page">
+    <div className="page">
+      <main className="container">
         <header className="top">
           <div className="brand">Kapsula</div>
           <button className="help" type="button">
@@ -195,7 +195,7 @@ export default function Presupuesto() {
             </div>
           </div>
         )}
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }
