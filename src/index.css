@@ -38,12 +38,13 @@ html.first {
   align-items: center;
   justify-content: center;
   padding: 12px;
+  background: linear-gradient(270deg, var(--bg-1) 0%, var(--bg-2) 100%);
 }
 
 .container {
   width: 100%;
   max-width: 420px;
-  background: transparent; /* 👈 MUY IMPORTANTE */
+  background: linear-gradient(270deg, var(--bg-1) 0%, var(--bg-2) 100%);
   padding: 0;
   border-radius: var(--radius);
   box-shadow:
